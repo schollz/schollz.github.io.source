@@ -1,6 +1,8 @@
-baseURL = "https://schollz.github.io/dwikiclone"
+#### EDIT THIS
+title = "Your website"
+####
+baseURL = ""
 languageCode = "en-us"
-title = "Your title goes here"
 publishDir = "tmp"
 RSSLink = "rss.xml"
 enableGitInfo = true

@@ -1,7 +1,28 @@
 <footer>
-		<hr> 
+		<hr>
+		{{ if .IsPage}}
 		<p>Last edit {{dateFormat "Jan 2, 2006" .GitInfo.AuthorDate}} by {{.GitInfo.AuthorName}} <small>({{.GitInfo.AbbreviatedHash}}, "{{.GitInfo.Subject}}")</small>.</p>
+		{{end}}
+		<p id="quoteP"></p>
 		<p>This site was made with <a href="https://github.com/gohugoio/hugo">Hugo</a> using theme <a href="https://github.com/schollz/onetwothree">onetwothree</a> made by <a href="https://github.com/schollz">schollz</a>.</p>
 	</footer>
+
+<script>
+
+function getJSON(url) {  //quick and dirty
+  var script = document.createElement('script');
+  script.setAttribute('src', url);
+  script.setAttribute('type', 'text/javascript');
+  document.getElementsByTagName('head')[0].appendChild(script);
+}
+
+function cbfunc(data1){   
+	console.log(data1);
+	var quoteP = document.getElementById("quoteP");
+	quoteP.innerHTML="“"+data1.text+"” - <em>" + data1.name + "</em>";
+}
+getJSON("http://localhost:8080/?callback=cbfunc")
+</script>
+
 </body>
 </html>

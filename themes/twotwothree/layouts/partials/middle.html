@@ -16,7 +16,7 @@
                     
                                 {{ end }}-->
                             </aside>
-                            <a href="{{ .Permalink }}" style="color:black;">{{ .Title }}</a>{{ if .Draft }} <span style="color:#FF4136;">(unpublished)</span>
+                            <a href="/{{ .Slug }}" style="color:black;">{{ .Title }}</a>{{ if .Draft }} <span style="color:#FF4136;">(unpublished)</span>
                     {{ end }}
                             </p>
                         {{ end }}

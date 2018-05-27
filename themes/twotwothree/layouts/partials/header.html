@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!-- COMMON TAGS -->
-	<title>{{ .Title }}</title>
+	<title>{{ .Site.Title }}{{if eq (.Title) (.Site.Title)}}{{else}} | {{.Title}}{{end}}</title>
 	<!-- Search Engine -->
 	<meta name="description" content="{{ .Description }}">
 	<meta name="image" content="{{ $.Param "image" }}">

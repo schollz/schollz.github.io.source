@@ -69,7 +69,7 @@ window.onload = ready;
 <!-- Start of guestbook -->
 
 <div class="collapse" tabindex="1">
-        <a id="commenttoggle" href="#commentssection" onclick="toggle_visibility('commentssection');">Show comments</a>
+        <a id="commenttoggle" href="#commentssection" onclick="toggle_visibility('commentssection');">Show comments <span id="commentsnum"></span></a>
         <script type="text/javascript">
             <!--
                 function toggle_visibility(id) {
@@ -126,16 +126,20 @@ window.onload = ready;
             var firstMessage = 0;
     
             function myCallback(acptlang) {
-                console.log(firstMessage);
-                console.log((acptlang.Message != "" && firstMessage == 1));
+                // console.log(firstMessage);
+                // console.log((acptlang.Message != "" && firstMessage == 1));
                 if (acptlang.Message != "" && firstMessage == 1) {
                     alert(acptlang.Message);
                     firstMessage = 1;
                 }
     
-                console.log(acptlang);
+                // console.log(acptlang);
                 guestbook.innerHTML = "";
-                console.log(acptlang.Entries.length);
+                // console.log(acptlang.Entries.length);
+                if (acptlang.Entries.length > 0) {
+                    var commentsNum = document.getElementById("commentsnum");
+                    commentsNum.innerText = "(" + acptlang.Entries.length + ")"
+                }
                 for (var i = 0; i < acptlang.Entries.length; i++) {
                     guestbook.innerHTML = guestbook.innerHTML +
                         `<div class="comment">
