@@ -4,9 +4,10 @@
 		<p>Last edit {{dateFormat "Jan 2, 2006" .GitInfo.AuthorDate}} by {{.GitInfo.AuthorName}} <small>({{.GitInfo.AbbreviatedHash}}, "{{.GitInfo.Subject}}")</small>.</p>
 		{{end}}
 		<p id="quoteP"></p>
-		<p>This site was made with <a href="https://github.com/gohugoio/hugo">Hugo</a> using theme <a href="https://github.com/schollz/onetwothree">onetwothree</a> made by <a href="https://github.com/schollz">schollz</a>.</p>
+		<p>This site was made with <a href="https://github.com/gohugoio/hugo">Hugo</a> using theme <a href="https://github.com/schollz/hugo-siebenmann-theme">siebenmann</a> made by <a href="https://github.com/schollz">schollz</a>.</p>
 	</footer>
 
+{{ if .Site.Params.quoteServer}}
 <script>
 
 function getJSON(url) {  //quick and dirty
@@ -19,10 +20,11 @@ function getJSON(url) {  //quick and dirty
 function cbfunc(data1){   
 	console.log(data1);
 	var quoteP = document.getElementById("quoteP");
-	quoteP.innerHTML="“"+data1.text+"” - <em>" + data1.name + "</em>";
+	quoteP.innerHTML="<em>“"+data1.text+"” - " + data1.name + "</em>";
 }
-getJSON("http://localhost:8080/?callback=cbfunc")
+getJSON("{{.Site.Params.quoteServer}}?callback=cbfunc")
 </script>
+{{end }}
 
 </body>
 </html>
