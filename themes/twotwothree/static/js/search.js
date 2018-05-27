@@ -44,6 +44,9 @@ function executeSearch(searchQuery){
 
 function populateResults(result){
   $.each(result,function(key,value){
+    if (value.item.title == "Search Results") {
+      return;
+    }
     var contents= value.item.contents;
     var snippet = "";
     var snippetHighlights=[];
