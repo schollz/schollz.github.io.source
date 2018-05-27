@@ -40,7 +40,11 @@ func Publish() (err error) {
 	if err != nil {
 		return
 	}
-	fmt.Println("minifying...")
+	fmt.Println("getting minifier...")
+	err = sh.RunV("go", "get", "-v", "github.com/tdewolff/minify/cmd/minify")
+	if err != nil {
+		return
+	}
 	err = sh.RunV("minify", "-a", "-r", "-o", "tmp/", "tmp")
 	if err != nil {
 		return
