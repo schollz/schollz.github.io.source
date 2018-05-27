@@ -1,31 +1,22 @@
 {{ partial "header.html" . }}
 
-    
-    <div id="documentbody">
-        <div class="wtblog">
-            <div class="maintext">
-                <div class="wikitext titlehack">
-                  
-                        <p>This site has my notes on recent <a href="/tags/science">science</a>, my <a href="/tags/coding">coding projects</a>, and my <a href="/tags/painting">paintings</a> (which often overlap). These thoughts are my own and do not reflect my employer.</p>
-                        
-
-
-                            {{ range first 100000 .Pages }}
-                            {{ if eq .Type "post"}}
-                                <p>
-                                {{ .Date.Format "January 2, 2006"}} - <a href="{{ .Permalink }}" style="color:black;">{{ .Title }}</a>{{ if .Draft }} <span style="color:#FF4136;">(unpublished)</span>
-                        {{ end }}
-                                </p>
-                            {{ end }}
-                            {{ end }}
-
-
-                </div>
-    
+<div id="documentbody">
+    <div class="wtblog">
+        <div class="maintext">
+            <div class="wikitext titlehack">
+                {{.Site.Params.intro | safeHTML }}
+                {{ range first 100000 .Pages }}
+                {{ if eq .Type "post"}}
+                <p>
+                    {{ .Date.Format "January 2, 2006"}} - <a href="{{ .Permalink }}" style="color:black;">{{ .Title }}</a>{{ if .Draft }} <span style="color:#FF4136;">(unpublished)</span>
+                    {{ end }}
+                </p>
+                {{ end }}
+                {{ end }}
             </div>
-           {{ partial "sidebar.html" . }}
+            
         </div>
+        {{ partial "sidebar.html" . }}
     </div>
-
-
+</div>
 {{ partial "footer.html" . }}

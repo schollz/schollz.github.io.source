@@ -1,19 +1,21 @@
-baseURL = "https://schollz.github.io"
+baseURL = "https://schollz.github.io/dwikiclone"
 languageCode = "en-us"
-title = "Zack's Notablog"
+title = "Your title goes here"
 publishDir = "tmp"
 RSSLink = "rss.xml"
 enableGitInfo = true
-pygmentsCodeFences=true 
+pygmentsCodeFences=true
 
 [permalinks]
   post = "/:slug/"
 
 [params]
+  github = "schollz"
   twitter = "yakczar"
-  navigation = ["projects.md","contact.md"]
+  navigation = ["about"]
   analytics=true
   style="4"
+  intro = """<p>This site has my notes on recent <a href="/tags/thoughts">thoughts</a>. These thoughts are my own and do not reflect my employer.</p>"""
 
 [outputs]
   home = ["HTML", "RSS", "JSON"]
