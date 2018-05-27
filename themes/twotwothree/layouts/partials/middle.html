@@ -1,0 +1,30 @@
+
+<div id="documentbody">
+        <div class="wtblog">
+            <div class="maintext">
+                <div class="wikitext titlehack">
+                    <h2>{{ title .Data.Term  }} posts</h2>
+                </div>
+                <div class="wikitext">
+                        {{ range first 100000 .Pages }}
+                        {{ if eq .Type "post"}}
+                            <p>
+                            <aside>{{ .Date.Format "January 2, 2006"}} 
+                                <!--{{ if .Params.tags }}
+                                /// <em>{{ range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}<a href="/tags/{{$e}}/">{{ $e }}</a>{{ end }}
+                                    </em>
+                    
+                                {{ end }}-->
+                            </aside>
+                            <a href="{{ .Permalink }}" style="color:black;">{{ .Title }}</a>{{ if .Draft }} <span style="color:#FF4136;">(unpublished)</span>
+                    {{ end }}
+                            </p>
+                        {{ end }}
+                        {{ end }}
+                </div>
+    
+        
+            </div>
+            {{ partial "sidebar.html" . }}
+        </div>
+    </div>

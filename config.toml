@@ -1,0 +1,25 @@
+baseURL = "https://schollz.github.io"
+languageCode = "en-us"
+title = "Zack's Notablog"
+publishDir = "tmp"
+RSSLink = "rss.xml"
+enableGitInfo = true
+pygmentsCodeFences=true 
+
+[permalinks]
+  post = "/:slug/"
+
+[params]
+  twitter = "yakczar"
+  navigation = ["projects.md","contact.md"]
+  analytics=true
+  style="4"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[taxonomies]
+  written = "written"
+  tags = "tags"
+  category = "categories"
+  keywords = "keywords"
