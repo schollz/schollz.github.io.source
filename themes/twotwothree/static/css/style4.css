@@ -110,7 +110,13 @@ table.blogtitles {
 .sidebar {
 	display: table-cell;	width: 24%;
 	padding: 1px 1px 1px 0.5em;
-	border-left: 1px dotted;
+	background: #EEEEEE;
+/*	border-left: 1px dotted;*/
+}
+
+#quoteP {
+	padding-left:0.5em;
+	padding-right: 0.5em;
 }
 
 /* Resize on small width and on the iPad Mini in portrait.
