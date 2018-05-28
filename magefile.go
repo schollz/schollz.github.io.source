@@ -114,6 +114,10 @@ func Publish() (err error) {
 		if err != nil {
 			return
 		}
+		err = sh.RunV("git", "publish", "origin", "master")
+		if err != nil {
+			return
+		}
 	}
 	return
 }
