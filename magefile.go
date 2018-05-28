@@ -4,6 +4,7 @@ package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -13,6 +14,7 @@ import (
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
+	"github.com/spf13/viper"
 )
 
 const VIMRC = `set nocompatible
@@ -62,6 +64,21 @@ func New() (err error) {
 
 // Publish will publish and minify the blog
 func Publish() (err error) {
+	os.RemoveAll("tmp")
+	// get config.toml settings
+	configBytes, _ := ioutil.ReadFile("config.toml")
+	viper.SetConfigType("toml") // or viper.SetConfigType("YAML")
+	viper.ReadConfig(bytes.NewBuffer(configBytes))
+	githubPublish := viper.Get("githubPublish")
+	if githubPublish != nil {
+		// clone github to tmp
+		fmt.Println("getting the current repo...")
+		err = sh.RunV("git", "clone", "git@github.com:"+githubPublish.(string), "tmp")
+		if err != nil {
+			return
+		}
+	}
+
 	fmt.Println("generating site...")
 	err = sh.RunV("hugo", "-t", "twotwothree")
 	if err != nil {
@@ -75,6 +92,28 @@ func Publish() (err error) {
 	err = sh.RunV("minify", "-a", "-r", "-o", "tmp/", "tmp")
 	if err != nil {
 		return
+	}
+
+	if githubPublish != nil {
+		// commit the changes
+		os.Chdir("tmp")
+		defer os.Chdir("..")
+		err = sh.RunV("git", "add", ".")
+		if err != nil {
+			return
+		}
+		var status string
+		status, err = sh.Output("git", "status", "-s")
+		if err != nil {
+			return
+		}
+		modified := strings.Count(status, "M ")
+		added := strings.Count(status, "A ")
+		commitMessage := fmt.Sprintf("add %d and modify %d files\n\n%s", added, modified, status)
+		err = sh.RunV("git", "commit", "-am", commitMessage)
+		if err != nil {
+			return
+		}
 	}
 	return
 }

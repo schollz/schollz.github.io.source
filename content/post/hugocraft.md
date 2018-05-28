@@ -1,4 +1,10 @@
-# hugocraft
+---
+title: "Hugo Craft"
+date: 2018-05-26T23:12:08-06:00
+tags: [thoughts]
+slug: hugocraft
+written: ["2018-05-26","2018-05","2018"]
+---
 
 This is a ready-to-go [Hugo](https://gohugo.io/)-based blog publishing system. The styling has a lot of inspiration from [the blog of Chris Siebenmann](https://utcc.utoronto.ca/~cks/space/blog/BlogGenesis) which I think excels in simplicity and minimalism. It uses [mage](https://github.com/magefile/mage) for an OS-agnostic build system to make it easy to chain commands. It has a simple search and comments ready-to-go.
 
