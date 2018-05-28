@@ -20,8 +20,8 @@ pygmentsCodeFences=true
   analytics=true
   style="4"
   intro = """<p>This site has my notes on recent <a href="/tags/thoughts">thoughts</a>. These thoughts are my own and do not reflect my employer.</p>"""
-  # quoteServer = "https://randomquote.schollz.com"
-  # commentServer = "https://guestbook.schollz.com"
+  quoteServer = "https://randomquote.schollz.com"
+  commentServer = "https://guestbook.schollz.com"
 
 
 [outputs]
