@@ -5,18 +5,44 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
+	"runtime"
 	"strings"
 
+	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 )
+
+const VIMRC = `set nocompatible
+set backspace=2
+func! WordProcessorModeCLI()
+  set columns=80
+  setlocal formatoptions=1 
+  setlocal noexpandtab 
+  map j gj 
+  map k gk
+  set complete+=s
+  set formatprg=par
+  setlocal wrap 
+  setlocal linebreak 
+  set foldcolumn=3
+  highlight Normal ctermfg=black ctermbg=grey
+  hi NonText ctermfg=grey guifg=grey
+  hi Folded guibg=grey
+endfu
+com! WPCLI call WordProcessorModeCLI()
+au BufEnter * set noro
+`
 
 // Serve the hugo site
 func Serve() (err error) {
 	err = sh.RunV("hugo", strings.Fields("server --ignoreCache -D --watch -t twotwothree --bind 0.0.0.0 --enableGitInfo --disableFastRender")...)
 	return
 }
+
+var NewFile string
 
 // New creates a new post
 func New() (err error) {
@@ -30,6 +56,7 @@ func New() (err error) {
 	postName := "post/" + slug + ".md"
 	err = sh.RunV("hugo", "new", postName)
 	fmt.Printf("created post 'content/%s'", postName)
+	NewFile = "content/" + postName
 	return
 }
 
@@ -49,6 +76,27 @@ func Publish() (err error) {
 	if err != nil {
 		return
 	}
+	return
+}
+
+// Write will open up vim to start writing
+func Write() (err error) {
+	mg.Deps(New)
+	vimrc, err := ioutil.TempFile("", "vimrc")
+	if err != nil {
+		return
+	}
+	defer os.Remove(vimrc.Name()) // clean up
+	err = ioutil.WriteFile(vimrc.Name(), []byte(VIMRC), 0755)
+	if err != nil {
+		return
+	}
+
+	vimExecutable := "vim"
+	if runtime.GOOS == "windows" {
+		vimExecutable = "vim.exe"
+	}
+	err = sh.RunV(vimExecutable, "-u", vimrc.Name(), "-c", "WPCLI", "+", "+startinsert", NewFile)
 	return
 }
 
