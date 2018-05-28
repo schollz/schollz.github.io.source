@@ -64,18 +64,27 @@ func New() (err error) {
 
 // Publish will publish and minify the blog
 func Publish() (err error) {
-	os.RemoveAll("tmp")
 	// get config.toml settings
 	configBytes, _ := ioutil.ReadFile("config.toml")
 	viper.SetConfigType("toml") // or viper.SetConfigType("YAML")
 	viper.ReadConfig(bytes.NewBuffer(configBytes))
 	githubPublish := viper.Get("githubPublish")
 	if githubPublish != nil {
-		// clone github to tmp
-		fmt.Println("getting the current repo...")
-		err = sh.RunV("git", "clone", "git@github.com:"+githubPublish.(string), "tmp")
-		if err != nil {
-			return
+		if _, errExists := os.Stat("tmp"); os.IsNotExist(errExists) {
+			// clone github to tmp
+			fmt.Println("getting the current repo...")
+			err = sh.RunV("git", "clone", "git@github.com:"+githubPublish.(string), "tmp")
+			if err != nil {
+				return
+			}
+		} else {
+			os.Chdir("tmp")
+			fmt.Println("pulling the current repo...")
+			err = sh.RunV("git", "pull")
+			if err != nil {
+				return
+			}
+			os.Chdir("..")
 		}
 	}
 
