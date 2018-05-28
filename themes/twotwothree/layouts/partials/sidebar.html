@@ -21,22 +21,6 @@
 
             {{ if .Site.Params.quoteServer}}
             <p id="quoteP"></p>
-            <script>
-
-            function getJSON(url) {  //quick and dirty
-              var script = document.createElement('script');
-              script.setAttribute('src', url);
-              script.setAttribute('type', 'text/javascript');
-              document.getElementsByTagName('head')[0].appendChild(script);
-            }
-
-            function cbfunc(data1){   
-                console.log(data1);
-                var quoteP = document.getElementById("quoteP");
-                quoteP.innerHTML="<em>“"+data1.text+"” - " + data1.name + "</em>";
-            }
-            getJSON("{{.Site.Params.quoteServer}}?callback=cbfunc")
-            </script>
             {{end }}
 
             <div class="sidesearch" style="font-size: small">

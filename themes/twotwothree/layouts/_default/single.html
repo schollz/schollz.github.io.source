@@ -47,7 +47,7 @@ function ready(fn) {
     tag.src = `${serverURL}/jsonp?callback=myCallback&message=${message}&name=${name}&email=${name}`;
     document.querySelector("head").appendChild(tag);
 }
-window.onload = ready;
+document.onreadystatechange = ready;
 </script>
 <div id="documentbody">
     <div class="wtblog">
