@@ -100,6 +100,23 @@ func Write() (err error) {
 	return
 }
 
+// Update will automatically update
+func Update() (err error) {
+	err = sh.RunV("git", "add", "content/")
+	if err != nil {
+		return
+	}
+	err = sh.RunV("git", "commit", "-am", "updated")
+	if err != nil {
+		return
+	}
+	err = sh.RunV("git", "push")
+	if err != nil {
+		return
+	}
+	return
+}
+
 // The first sentence in the comment will be the short help text shown with mage -l.
 // The rest of the comment is long help text that will be shown with mage -h <target>
 func Target() {
