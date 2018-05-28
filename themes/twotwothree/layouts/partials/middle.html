@@ -9,7 +9,7 @@
                         {{ range first 100000 .Pages }}
                         {{ if eq .Type "post"}}
                             <p>
-                    {{ .Date.Format "January 2, 2006"}} - <a href="/{{ .Slug }}" style="color:black;">{{ .Title }}</a>{{ if .Draft }} <span style="color:#FF4136;">(unpublished)</span>{{ end }}
+                    {{ .Date.Format "January 2, 2006"}} - <a href="/{{ .Slug | lower }}" style="color:black;">{{ .Title }}</a>{{ if .Draft }} <span style="color:#FF4136;">(unpublished)</span>{{ end }}
                             </p>
                         {{ end }}
                         {{ end }}
