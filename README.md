@@ -50,12 +50,12 @@ which will build and minify the results into the `tmp/` directory.
 
 # Merging your repo
 
-Create a repo. Then you can add remote:
+Create a repo. Then you can fork this one and keep your blog up to date with the following:
 
 ```
-$ git remote add upstream https://github.com/schollz/hugocraft.git
-$ git fetch upstream
-$ git merge upstream/master
+git remote add upstream https://github.com/schollz/hugocraft.git
+git fetch upstream
+git merge upstream/master
 ```
 
 # License
