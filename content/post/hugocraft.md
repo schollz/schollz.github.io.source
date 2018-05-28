@@ -54,6 +54,14 @@ $ mage publish
 
 which will build and minify the results into the `tmp/` directory.
 
-# License
+# Merging your repo
 
-MIT
+Create a repo. Then you can fork this one and keep your blog up to date with the following:
+
+```
+git remote add upstream https://github.com/schollz/hugocraft.git
+git fetch upstream
+git merge upstream/master
+```
+
+![Hugo image](http://pisarenko.net/images/hugo-logo.png)
