@@ -63,3 +63,5 @@ git remote add upstream https://github.com/schollz/hugocraft.git
 git fetch upstream
 git merge upstream/master
 ```
+
+![Hugo image](http://pisarenko.net/images/hugo-logo.png)
