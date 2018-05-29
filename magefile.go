@@ -188,6 +188,7 @@ func Update() (err error) {
 	if err != nil {
 		return
 	}
+	return
 }
 
 // A var named Default indicates which target is the default.
