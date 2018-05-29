@@ -1,8 +1,7 @@
 ---
-title: "Golang Nested Templates"
+title: "How to easily make nested templates (Go)"
 date: 2017-11-10T04:50:00-07:00
-draft: true
-tags: [coding]
+tags: [coding,golang]
 slug: golang-nested-templates
 written: ["2017","2017-11","2017-11-10"]
 ---

@@ -1,7 +1,7 @@
 ---
 title: Animal language vs. human language
 date: 2015-06-29
-tags: [science, language]
+tags: [science,brain]
 description: One thing that divides humans from animals is their ability to use language. Scientists have discovered that the difference is smaller than thought.
 slug: b11653e28c3d45b3267a760d386d1849
 keywords: science

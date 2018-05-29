@@ -1,6 +1,6 @@
 ---
-title: What bitcoin is
-tags: [science]
+title: What is bitcoin?
+tags: [science,bitcoin]
 date: 2015-08-01
 slug: bitcoin
 keywords: science

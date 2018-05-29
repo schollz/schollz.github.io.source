@@ -2,7 +2,7 @@
 title: "OSS divisions"
 date: 2017-09-17T09:04:40-06:00
 slug: oss
-tags: ["coding","thoughts","open-source"]
+tags: ["coding","thoughts"]
 keywords: coding
 written: ["2017","2017-09","2017-09-17"]
 ---

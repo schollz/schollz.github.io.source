@@ -1,7 +1,7 @@
 ---
 title: "Shallow `go get`"
 date: 2018-05-06T07:00:57-07:00
-tags: [coding]
+tags: [coding,golang]
 slug: shallow-go-get
 written: ["2018-05-06","2018-05","2018"]
 ---

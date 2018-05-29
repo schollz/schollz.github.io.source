@@ -3,7 +3,7 @@ title: "Why Go?"
 date: 2017-04-29T09:48:59-06:00
 slug: why-go
 keywords: coding
-tags: [coding]
+tags: [coding,golang]
 written: ["2017","2017-04","2017-04-29"]
 ---
 
