@@ -1,5 +1,5 @@
 ---
-title: "Recurisve ingredients"
+title: "Recursive ingredients"
 date: 2017-06-23T19:19:15-07:00
 tags: [food, coding]
 slug: recursive-ingredients
