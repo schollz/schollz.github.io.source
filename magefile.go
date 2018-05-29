@@ -7,18 +7,19 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
+	"path"
+	"path/filepath"
 	"runtime"
 	"strings"
 
-	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
 	"github.com/spf13/viper"
 )
 
 const VIMRC = `set nocompatible
 set backspace=2
+autocmd TextChanged,TextChangedI <buffer> silent write
 func! WordProcessorModeCLI()
   set columns=80
   setlocal formatoptions=1 
@@ -38,7 +39,7 @@ com! WPCLI call WordProcessorModeCLI()
 au BufEnter * set noro
 `
 
-// Serve the hugo site
+// Serve the hugo site.
 func Serve() (err error) {
 	err = sh.RunV("hugo", strings.Fields("server --ignoreCache -D --watch -t twotwothree --bind 0.0.0.0 --enableGitInfo --disableFastRender")...)
 	return
@@ -46,7 +47,7 @@ func Serve() (err error) {
 
 var NewFile string
 
-// New creates a new post
+// New creates a new post.
 func New() (err error) {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print("Post title: ")
@@ -62,7 +63,7 @@ func New() (err error) {
 	return
 }
 
-// Publish will publish and minify the blog
+// Publish will publish and minify the blog.
 func Publish() (err error) {
 	// get config.toml settings
 	configBytes, _ := ioutil.ReadFile("config.toml")
@@ -131,9 +132,13 @@ func Publish() (err error) {
 	return
 }
 
-// Write will open up vim to start writing
+// Write will create a new post and open up vim to start writing.
 func Write() (err error) {
-	mg.Deps(New)
+	New() // New can fail
+	dir, fname := filepath.Split(NewFile)
+	fmt.Println(path.Join(dir, "."+fname+".swp"))
+	os.Remove(path.Join(dir, "."+fname+".swp"))
+	go sh.Run("hugo", strings.Fields("server --ignoreCache -D --watch -t twotwothree --bind 0.0.0.0 --enableGitInfo --disableFastRender")...)
 	vimrc, err := ioutil.TempFile("", "vimrc")
 	if err != nil {
 		return
@@ -152,8 +157,8 @@ func Write() (err error) {
 	return
 }
 
-// Update will automatically update
-func Update() (err error) {
+// Push will automatically push the current content.
+func Push() (err error) {
 	err = sh.RunV("git", "add", "content/")
 	if err != nil {
 		return
@@ -169,12 +174,20 @@ func Update() (err error) {
 	return
 }
 
-// The first sentence in the comment will be the short help text shown with mage -l.
-// The rest of the comment is long help text that will be shown with mage -h <target>
-func Target() {
-	// by default, the log stdlib package will be set to discard output.
-	// Running with mage -v will set the output to stdout.
-	log.Printf("Hi!")
+// Update will fetch the latest from hugocraft.
+func Update() (err error) {
+	err = sh.RunV("git", "remote", "add", "upstream", "https://github.com/schollz/hugocraft.git")
+	if err != nil {
+		return
+	}
+	err = sh.RunV("git", "fetch", "upstream")
+	if err != nil {
+		return
+	}
+	err = sh.RunV("git", "merge", "upstream/master")
+	if err != nil {
+		return
+	}
 }
 
 // A var named Default indicates which target is the default.
