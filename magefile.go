@@ -176,10 +176,7 @@ func Push() (err error) {
 
 // Update will fetch the latest from hugocraft.
 func Update() (err error) {
-	err = sh.RunV("git", "remote", "add", "upstream", "https://github.com/schollz/hugocraft.git")
-	if err != nil {
-		return
-	}
+	sh.RunV("git", "remote", "add", "upstream", "https://github.com/schollz/hugocraft.git")
 	err = sh.RunV("git", "fetch", "upstream")
 	if err != nil {
 		return
