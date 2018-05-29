@@ -18,10 +18,11 @@ This is a ready-to-go [Hugo](https://gohugo.io/)-based blog publishing system. T
 
 ## Get started
 
-You need to have Go installed. Then install Mage:
+You need to have Go installed. Then install dependencies:
 
 ```
 $ go get github.com/magefile/mage
+$ go get github.com/spf13/viper
 ```
 
 The install Hugo by just downloading the [latest release](https://github.com/gohugoio/hugo/releases/latest).
@@ -52,11 +53,17 @@ And when you are ready to publish just do
 $ mage publish
 ```
 
-which will build and minify the results into the `tmp/` directory.
+which will build and minify the results into the `tmp/` directory. You can also set your `config.toml` file for and set the repo `githubRepo` so that it will automatically publish and push to that repo.
 
-# Merging your repo
+# Getting the latest hugocraft
 
-Create a repo. Then you can fork this one and keep your blog up to date with the following:
+After you've forked this repo, you can update with 
+
+```
+$ mage update
+```
+
+which will do the following commands to merge the upstream *hugocraft* fork:
 
 ```
 git remote add upstream https://github.com/schollz/hugocraft.git
