@@ -22,7 +22,7 @@ I started out with this great photo by James Wheeler.
 
 I started out by sketching out the painting, loose white paint on red.
 
-<img alt="The beginning" data-src="/img/cow1.jpg" />
+![The beginning](/img/cow1.jpg)
 
 
 The background went very quickly, but I like how it turned out.
