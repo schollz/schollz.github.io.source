@@ -58,10 +58,7 @@ func Ipfs() (err error) {
 	}()
 
 	time.Sleep(1 * time.Second)
-	err = sh.RunV("wget", strings.Fields("-k --recursive --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains localhost --no-parent http://localhost:1313/")...)
-	if err != nil {
-		return
-	}
+	sh.RunV("wget", strings.Fields("-k --recursive --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains localhost --no-parent http://localhost:1313/")...)
 
 	var ipfsHash string
 	ipfsHash, err = sh.Output("ipfs", "add", "-r", "localhost+1313", "-Q")
