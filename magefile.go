@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/magefile/mage/sh"
 	"github.com/spf13/viper"
@@ -47,70 +48,31 @@ func Serve() (err error) {
 
 var NewFile string
 
+// IPFS requires wget and ipfs, and will automatically build and publish to IPFS.
 func Ipfs() (err error) {
-	err = sh.RunV("hugo", "-t", "twotwothree")
-	if err != nil {
-		return
-	}
-	fmt.Println("getting minifier...")
-	err = sh.RunV("go", "get", "-v", "github.com/tdewolff/minify/cmd/minify")
-	if err != nil {
-		return
-	}
-	err = sh.RunV("minify", "-a", "-r", "-o", "tmp/", "tmp")
-	if err != nil {
-		return
-	}
-
-	// go through static files - css, js, static, img, fonts
-	staticFolders := []string{"css", "js", "static", "img", "fonts"}
-	staticFiles := []string{}
-	for _, staticFolder := range staticFolders {
-		err = filepath.Walk(path.Join("tmp", staticFolder), func(path string, f os.FileInfo, err error) error {
-			if f != nil && !f.IsDir() {
-				staticFiles = append(staticFiles, strings.TrimPrefix(path, "tmp/"))
-			}
-			return nil
-		})
-	}
-	fmt.Printf("found %d static files: %s\n", len(staticFiles), staticFiles)
-	staticFileToHash := make(map[string]string)
-	for _, staticFile := range staticFiles {
-		ipfsHash, errIpfs := sh.Output("ipfs", "add", path.Join("tmp", staticFile), "-Q")
-		if errIpfs != nil {
-			return errIpfs
+	go func() {
+		err = sh.RunV("hugo", strings.Fields("server --ignoreCache -D --watch -t twotwothree --bind 0.0.0.0 --enableGitInfo --disableFastRender")...)
+		if err != nil {
+			return
 		}
-		fmt.Println(staticFile, ipfsHash)
-		staticFileToHash[staticFile] = "/ipfs/" + ipfsHash
+	}()
+
+	time.Sleep(1 * time.Second)
+	err = sh.RunV("wget", strings.Fields("-k --recursive --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains localhost --no-parent http://localhost:1313/")...)
+	if err != nil {
+		return
 	}
 
-	// find non-static files and replace
-	err = filepath.Walk("tmp", func(path string, f os.FileInfo, err error) error {
-		if f != nil && !f.IsDir() {
-			fname := strings.TrimPrefix(path, "tmp/")
-			// skip the static files
-			if _, ok := staticFileToHash[fname]; ok {
-				return nil
-			}
-
-			var b []byte
-			b, err = ioutil.ReadFile(path)
-			startingBytes := len(b)
-			if err != nil {
-				return err
-			}
-			for staticFile := range staticFileToHash {
-				b = bytes.Replace(b, []byte(staticFile), []byte(staticFileToHash[staticFile]), -1)
-			}
-			fmt.Printf("rewriting %s (%d -> %d)\n", path, startingBytes, len(b))
-			err = ioutil.WriteFile(path, b, f.Mode())
-			if err != nil {
-				return err
-			}
-		}
-		return nil
-	})
-	fmt.Println("done")
+	var ipfsHash string
+	ipfsHash, err = sh.Output("ipfs", "add", "-r", "localhost+1313", "-Q")
+	if err != nil {
+		return
+	}
+	fmt.Println("\n\n\n---------------------------------\n")
+	fmt.Printf("Your hash: %s\n", ipfsHash)
+	fmt.Printf("Pin it: ipfs pin -r --progress %s\n", ipfsHash)
+	fmt.Printf("View it: https://ipfs.io/ipfs/%s\n", ipfsHash)
+	fmt.Println("\n---------------------------------\n\n\n")
 	return
 }
 
