@@ -70,7 +70,7 @@ func Ipfs() (err error) {
 	}
 	fmt.Println("\n\n\n---------------------------------\n")
 	fmt.Printf("Your hash: %s\n", ipfsHash)
-	fmt.Printf("Pin it: ipfs pin -r --progress %s\n", ipfsHash)
+	fmt.Printf("Pin it: ipfs pin add -r --progress %s\n", ipfsHash)
 	fmt.Printf("View it: https://ipfs.io/ipfs/%s\n", ipfsHash)
 	fmt.Println("\n---------------------------------\n\n\n")
 	return
