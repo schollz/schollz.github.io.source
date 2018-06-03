@@ -51,7 +51,7 @@ var NewFile string
 // IPFS requires wget and ipfs, and will automatically build and publish to IPFS.
 func Ipfs() (err error) {
 	go func() {
-		err = sh.RunV("hugo", strings.Fields("server --ignoreCache -D --watch -t twotwothree --bind 0.0.0.0 --enableGitInfo --disableFastRender")...)
+		err = sh.RunV("hugo", strings.Fields("server --ignoreCache --watch -t twotwothree --bind 0.0.0.0 --enableGitInfo --disableFastRender")...)
 		if err != nil {
 			return
 		}
