@@ -47,6 +47,73 @@ func Serve() (err error) {
 
 var NewFile string
 
+func Ipfs() (err error) {
+	err = sh.RunV("hugo", "-t", "twotwothree")
+	if err != nil {
+		return
+	}
+	fmt.Println("getting minifier...")
+	err = sh.RunV("go", "get", "-v", "github.com/tdewolff/minify/cmd/minify")
+	if err != nil {
+		return
+	}
+	err = sh.RunV("minify", "-a", "-r", "-o", "tmp/", "tmp")
+	if err != nil {
+		return
+	}
+
+	// go through static files - css, js, static, img, fonts
+	staticFolders := []string{"css", "js", "static", "img", "fonts"}
+	staticFiles := []string{}
+	for _, staticFolder := range staticFolders {
+		err = filepath.Walk(path.Join("tmp", staticFolder), func(path string, f os.FileInfo, err error) error {
+			if f != nil && !f.IsDir() {
+				staticFiles = append(staticFiles, strings.TrimPrefix(path, "tmp/"))
+			}
+			return nil
+		})
+	}
+	fmt.Printf("found %d static files: %s\n", len(staticFiles), staticFiles)
+	staticFileToHash := make(map[string]string)
+	for _, staticFile := range staticFiles {
+		ipfsHash, errIpfs := sh.Output("ipfs", "add", path.Join("tmp", staticFile), "-Q")
+		if errIpfs != nil {
+			return errIpfs
+		}
+		fmt.Println(staticFile, ipfsHash)
+		staticFileToHash[staticFile] = "/ipfs/" + ipfsHash
+	}
+
+	// find non-static files and replace
+	err = filepath.Walk("tmp", func(path string, f os.FileInfo, err error) error {
+		if f != nil && !f.IsDir() {
+			fname := strings.TrimPrefix(path, "tmp/")
+			// skip the static files
+			if _, ok := staticFileToHash[fname]; ok {
+				return nil
+			}
+
+			var b []byte
+			b, err = ioutil.ReadFile(path)
+			startingBytes := len(b)
+			if err != nil {
+				return err
+			}
+			for staticFile := range staticFileToHash {
+				b = bytes.Replace(b, []byte(staticFile), []byte(staticFileToHash[staticFile]), -1)
+			}
+			fmt.Printf("rewriting %s (%d -> %d)\n", path, startingBytes, len(b))
+			err = ioutil.WriteFile(path, b, f.Mode())
+			if err != nil {
+				return err
+			}
+		}
+		return nil
+	})
+	fmt.Println("done")
+	return
+}
+
 // New creates a new post.
 func New() (err error) {
 	reader := bufio.NewReader(os.Stdin)
@@ -190,3 +257,13 @@ func Update() (err error) {
 
 // A var named Default indicates which target is the default.
 var Default = Serve
+
+// Exists reports whether the named file or directory exists.
+func exists(name string) bool {
+	if _, err := os.Stat(name); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
+}
