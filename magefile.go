@@ -12,6 +12,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"strings"
+	"time"
 
 	"github.com/magefile/mage/sh"
 	"github.com/spf13/viper"
@@ -46,6 +47,34 @@ func Serve() (err error) {
 }
 
 var NewFile string
+
+// IPFS requires wget and ipfs, and will automatically build and publish to IPFS.
+func Ipfs() (err error) {
+	go func() {
+		err = sh.RunV("hugo", strings.Fields("server --ignoreCache --watch -t twotwothree --bind 0.0.0.0 --enableGitInfo --disableFastRender")...)
+		if err != nil {
+			return
+		}
+	}()
+
+	time.Sleep(1 * time.Second)
+	err = sh.RunV("wget", strings.Fields("-k --recursive --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains localhost --no-parent http://localhost:1313/")...)
+	if err != nil {
+		return
+	}
+
+	var ipfsHash string
+	ipfsHash, err = sh.Output("ipfs", "add", "-r", "localhost+1313", "-Q")
+	if err != nil {
+		return
+	}
+	fmt.Println("\n\n\n---------------------------------\n")
+	fmt.Printf("Your hash: %s\n", ipfsHash)
+	fmt.Printf("Pin it: ipfs pin -r --progress %s\n", ipfsHash)
+	fmt.Printf("View it: https://ipfs.io/ipfs/%s\n", ipfsHash)
+	fmt.Println("\n---------------------------------\n\n\n")
+	return
+}
 
 // New creates a new post.
 func New() (err error) {
@@ -190,3 +219,13 @@ func Update() (err error) {
 
 // A var named Default indicates which target is the default.
 var Default = Serve
+
+// Exists reports whether the named file or directory exists.
+func exists(name string) bool {
+	if _, err := os.Stat(name); err != nil {
+		if os.IsNotExist(err) {
+			return false
+		}
+	}
+	return true
+}

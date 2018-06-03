@@ -27,7 +27,21 @@ $ go get github.com/spf13/viper
 
 The install Hugo by just downloading the [latest release](https://github.com/gohugoio/hugo/releases/latest).
 
+Now you should start a new repo and add hugocraft.
+
+```
+$ mkdir my-blog && cd my-blog
+$ git init 
+$ git remote add upstream https://github.com/schollz/hugocraft.git
+$ git fetch upstream
+$ git merge upstream/master
+```
+
+Now you are ready to use!
+
 ## How to use
+
+### Writing 
 
 To get started, you can make a new post:
 
@@ -35,27 +49,41 @@ To get started, you can make a new post:
 $ mage new
 ```
 
-You'll be prompted for a name and then the post will be created. You can open the post in your favorite editor to edit it. Or, if you like using `vim` you can just do 
+You'll be prompted for a name and then the post will be created. You can open the post in your favorite editor to edit it. 
+
+Or, if you like using `vim` you can just do 
 
 ```
 $ mage write
 ```
 
-While you are editing you can watch the changes in the blog by just doing
+When you want to push your latest changes just do
 
 ```
-$ mage
+$ mage push
 ```
 
-And when you are ready to publish just do
+### IPFS publishing
+
+First install `ipfs` and make sure you have `wget`. Run your *ipfs* instance (`ipfs daemon`) Then you can easily publish to IPFS using
+
+```
+$ mage ipfs
+```
+
+which will return your hash. Now you can view your site at `https://ipfs.ip/ipfs/<your hash>`.
+
+### Github publishing
+
+And when you are ready to publish you need to set your repo name. Goto the `config.toml` and just change `githubPublish` to your Github repo, e.g. `user/user.github.io`. Then you can publish by just doing
 
 ```
 $ mage publish
 ```
 
-which will build and minify the results into the `tmp/` directory. You can also set your `config.toml` file for and set the repo `githubRepo` so that it will automatically publish and push to that repo.
+which will build and minify the results into the `tmp/` directory.
 
-# Getting the latest hugocraft
+### Get latest *hugocraft*
 
 After you've forked this repo, you can update with 
 
@@ -70,5 +98,6 @@ git remote add upstream https://github.com/schollz/hugocraft.git
 git fetch upstream
 git merge upstream/master
 ```
+
 
 ![Hugo image](http://pisarenko.net/images/hugo-logo.png)
