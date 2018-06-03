@@ -58,10 +58,7 @@ func Ipfs() (err error) {
 	}()
 
 	time.Sleep(1 * time.Second)
-	err = sh.RunV("wget", strings.Fields("-k --recursive --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains localhost --no-parent http://localhost:1313/")...)
-	if err != nil {
-		return
-	}
+	sh.RunV("wget", strings.Fields("-k --recursive --no-clobber --page-requisites --adjust-extension --span-hosts --convert-links --restrict-file-names=windows --domains localhost --no-parent http://localhost:1313/")...)
 
 	var ipfsHash string
 	ipfsHash, err = sh.Output("ipfs", "add", "-r", "localhost+1313", "-Q")
@@ -70,7 +67,7 @@ func Ipfs() (err error) {
 	}
 	fmt.Println("\n\n\n---------------------------------\n")
 	fmt.Printf("Your hash: %s\n", ipfsHash)
-	fmt.Printf("Pin it: ipfs pin -r --progress %s\n", ipfsHash)
+	fmt.Printf("Pin it: ipfs pin add -r --progress %s\n", ipfsHash)
 	fmt.Printf("View it: https://ipfs.io/ipfs/%s\n", ipfsHash)
 	fmt.Println("\n---------------------------------\n\n\n")
 	return
