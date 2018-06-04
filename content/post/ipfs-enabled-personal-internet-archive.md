@@ -18,4 +18,4 @@ $ cd ../ && ipfs add -r site1 -Q
 $ ipfs pin add -r <some hash>
 ```
 
-That's it! IPFS will automatically resuse assets if they have the same hash, so common files (CSS, JS) will only ever be added once.
+That's it! IPFS will automatically resuse assets if they have the same hash, so common files (CSS, JS) will only ever be added once. You can then view your site with the IPFS gateway. For example, the site above is available at https://ipfs.io/ipfs/QmdLSyPnQLiVk1wy91tZvhVfqbFbD7zSCuRtC51Z9yeY8E/www.bzarg.com/p/how-a-kalman-filter-works-in-pictures/.
