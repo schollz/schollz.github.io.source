@@ -2,7 +2,7 @@
 title: "IPFS with Hugo"
 date: 2017-10-15T20:43:31-06:00
 draft: true
-tags: [coding]
+tags: [coding,ipfs]
 slug: ipfs
 written: ["2017","2017-10","2017-10-15"]
 ---
