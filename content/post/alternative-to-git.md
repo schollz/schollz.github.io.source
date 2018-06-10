@@ -1,17 +1,20 @@
 ---
-title: "Alternative to git"
+title: "Self-hosting with fossil, an alternative to git"
 date: 2018-06-10T10:01:55-07:00
-draft: true
-tags: [thoughts]
-slug: alternative-to-git
+tags: [coding]
+slug: fossil
 written: ["2018-06-10","2018-06","2018"]
 ---
 
-Github, Gitlab, Bitbucket all control git. They all do similar things - issues and wiki, etc. *fossil* is an alternative to *git* that actually has built-in issues, wiki, and easily self-hosts. This is a quickstart to get started with hosting and cloning *fossil* repos.
+Github, Gitlab, Bitbucket are all web interfaces for *git*. They all do similar things that add on features that aren't implicit in *git*, like issues and wiki, etc. 
+
+Unbeknownst to some, *fossil* is an alternative to *git* that actually has built-in issues, wiki, and easily self-hosts. This is a quickstart to get started with hosting and cloning *fossil* repos.
+
+## Before you begin 
 
 First, download fossil. There are already binaries available for *fossil*, you can find them [here](https://www.fossil-scm.org/xfer/uv/download.html).
 
-## New repo
+## New fossil {#new}
 
 Make sure to save each fossil repo with the extension `.fossil` - this is very important if you want to do hosting.
 
@@ -29,7 +32,7 @@ This will make a new repository with the default user `schollz`. You can then ch
 > rm pass # this ensures your password doesn't enter the bash history
 ```
 
-# Hosting
+## Hosting fossils {#hosting}
 
 Say now you have several fossils in the same folder. Make sure that each has the `.fossil` suffix - this is very important.
 
@@ -57,15 +60,15 @@ fossil.schollz.com {
 ```
 
 
-## Cloning
+## Cloning fossil {#cloning}
 
-Cloning is easy, just make sure to include your user name. If you are using `fossil server .` like above, then you need to add `/repo` to tell it you want to clone `repo.fossil`.
+Cloning is easy, just make sure to include your user name. If you are using "`fossil server .`" like above, then you need to add `/repo` to tell it you want to clone `repo.fossil`.
 
 ```
 fossil clone https://schollz@fossil.schollz.com/3 3.fossil
 ```
 
-You will be prompted for the password, which is the same password that you set up top. Now you can open the repo
+You will be prompted for the password, which is the same password that you set up top. Now you can open the repo.
 
 ```
 > fossil open 3.fossil
@@ -77,9 +80,8 @@ Things are then pretty similar to *git*.
 > touch README.md
 > fossil add README.md
 > fossil commit README.md
-> fossil push
 ```
 
 ## General
 
-I like to have the `README.md` in the main repo be the default documentation. To do this, make a `README.md` file and then goto Admin -> Configuration and look fro the **Index Page** and change it to `/doc/tip/README.md`. Make sure to then press "Apply Changes" at the top.
+I like to have the `README.md` in the main repo be the default documentation. To do this, make a `README.md` file and then goto Admin -> Configuration and look for the **Index Page** and change it to `/doc/tip/README.md`. Make sure to then press "Apply Changes" at the top.
