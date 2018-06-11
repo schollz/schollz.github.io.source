@@ -103,6 +103,14 @@ You can easily create pull (get latest changes):
 
 I like to have the `README.md` in the main repo be the first thing you see on the web UI - just like Github/Gitlab/Bitbucket. To do this, make a `README.md` file and then goto Admin -> Configuration and look for the **Index Page** and change it to `/doc/tip/README.md`. Make sure to then press "Apply Changes" at the top.
 
+Another trick - you can add `fossil` as a parameter to your `~/.zshrc` if
+you are using *oh-my-zsh* (if you aren't using it, why?). Just make sure
+you have this line:
+
+``` 
+plugins=(git history fossil) 
+```
+
 ## Using go
 
 It seems like [it may not be able to use Go with self-hosted fossil repositories yet](https://github.com/golang/go/issues/25811).
