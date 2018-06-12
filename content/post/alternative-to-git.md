@@ -111,6 +111,13 @@ you have this line:
 plugins=(git history fossil) 
 ```
 
+There is a really nice skin that emulates Google Code. You can download it [from the source](http://fossil.include-once.org/fossil-skins/raw/googlecode.txt?name=1c1738c248dc1f5784e402a466e926bfd9a703e4) or from [my mirror](https://cowyo.com/google-fossil-skin.txt/raw). Then install it with
+
+```
+> fossil config import googlecode.txt
+> fossil config push skin
+```
+
 ## Using go
 
 It seems like [it may not be able to use Go with self-hosted fossil repositories yet](https://github.com/golang/go/issues/25811).
