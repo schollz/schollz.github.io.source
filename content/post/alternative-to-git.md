@@ -1,14 +1,14 @@
 ---
 title: "Self-hosting with fossil, an alternative to git"
 date: 2018-06-10T10:01:55-07:00
-tags: [coding]
+tags: [coding, golang]
 slug: fossil
 written: ["2018-06-10","2018-06","2018"]
 ---
 
 Github, Gitlab, Bitbucket are all web interfaces for *git*. They all do similar things that add on features that aren't implicit in *git*, like issues and wiki, etc. 
 
-Unbeknownst to some, *fossil* is an alternative to *git* that actually has built-in issues, wiki, and easily self-hosts. This is a quickstart to get started with hosting and cloning *fossil* repos. The [official quickstart](http://www.fossil-scm.org/index.html/doc/2010-01-01/www/quickstart.wiki) is very good, although I realized a few tricks in getting the hosting to work on HTTPS behind a reverse-proxy, which are described here.
+Unbeknownst to some, *fossil* is an alternative to *git* that actually has built-in issues, wiki, and easily self-hosts. This is a quickstart to get started with hosting and cloning *fossil* repos. The [official quickstart](http://www.fossil-scm.org/index.html/doc/2010-01-01/www/quickstart.wiki) is very good, although I realized a few tricks in getting the [fossil hosting to work on HTTPS](#hosting) behind a reverse-proxy and getting [fossil to work with Go](#go).
 
 ## Before you begin 
 
@@ -99,7 +99,21 @@ You can easily create pull (get latest changes):
 > fossil sync
 ```
 
-## General
+
+## Configure for `Go` {#go}
+
+In order to use *fossil* with `go get` you need to make sure you have the right [remote import paths](https://golang.org/cmd/go/#hdr-Remote_import_paths) specified in the `meta` tag.
+
+Basically, if you are following the above and you have a fossil repo hosted at `https://yourdomain.com/hello-world` then you need to include the meta tag:
+
+```
+<meta name="go-import" content="yourdomain.com/hello-world fossil https://yourdomain.com/hello-world">
+```
+
+You can do this by changing the default fossil skin (Admin -> Skins). There is a really nice [Google Code skin](http://fossil.include-once.org/fossil-skins/raw/googlecode.txt?name=1c1738c248dc1f5784e402a466e926bfd9a703e4) available. For convenience, I already have the [CSS](https://cowyo.com/fossil_css/raw), [Header](https://cowyo.com/fossil_header/raw), and [Footer](https://cowyo.com/fossil_footer/raw). Just edit each component (Step 4 under Skins) and then check both boxes in Step 7 and hit "Publish Draft1".
+
+
+## General {#general}
 
 I like to have the `README.md` in the main repo be the first thing you see on the web UI - just like Github/Gitlab/Bitbucket. To do this, make a `README.md` file and then goto Admin -> Configuration and look for the **Index Page** and change it to `/doc/tip/README.md`. Make sure to then press "Apply Changes" at the top.
 
@@ -110,14 +124,3 @@ you have this line:
 ``` 
 plugins=(git history fossil) 
 ```
-
-There is a really nice skin that emulates Google Code. You can download it [from the source](http://fossil.include-once.org/fossil-skins/raw/googlecode.txt?name=1c1738c248dc1f5784e402a466e926bfd9a703e4) or from [my mirror](https://cowyo.com/google-fossil-skin.txt/raw). Then install it with
-
-```
-> fossil config import googlecode.txt
-> fossil config push skin
-```
-
-## Using go
-
-It seems like [it may not be able to use Go with self-hosted fossil repositories yet](https://github.com/golang/go/issues/25811).
