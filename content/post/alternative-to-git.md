@@ -99,6 +99,25 @@ You can easily create pull (get latest changes):
 > fossil sync
 ```
 
+## Private and public repos {#access}
+
+### Private repos
+
+It's pretty easy to make your fossil private. Just goto Admin -> Security Audit and then click "Take it private".
+
+### Public repos
+
+This is the default. However, sometimes if you take your repo private you'd like to make it public again. Making your repository public again is a little more involved. 
+
+Basically there are two types of users: "nobody" and "anonymous" users. The "anonymous" refers to permissions given to *anyone who logs in*. The "nobody" refers to the permissions given to *anyone who visits* the site. To make a repo public again you have to redefine the permissions for both these types of users by going to Admin -> Users.
+
+The typical permissions for "nobody" for public access are "gjozr":
+
+![Permissions for public access for "nobody" (those who log in).](/img/nobody.PNG)
+
+The typical permissions for "anonymous" for public access are "chmn":
+
+![Permissions for public access for "anonymous" (those who log in).](/img/chmn.PNG)
 
 ## Configure for `Go` {#go}
 
@@ -110,7 +129,7 @@ Basically, if you are following the above and you have a fossil repo hosted at `
 <meta name="go-import" content="yourdomain.com/hello-world fossil https://yourdomain.com/hello-world">
 ```
 
-You can do this by changing the default fossil skin (Admin -> Skins). There is a really nice [Google Code skin](http://fossil.include-once.org/fossil-skins/raw/googlecode.txt?name=1c1738c248dc1f5784e402a466e926bfd9a703e4) available. For convenience, I already have the [CSS](https://cowyo.com/fossil_css/raw), [Header](https://cowyo.com/fossil_header/raw), and [Footer](https://cowyo.com/fossil_footer/raw). Just edit each component (Step 4 under Skins) and then check both boxes in Step 7 and hit "Publish Draft1".
+You can do this by changing the default fossil skin (Admin -> Skins). There is a really nice [Google Code skin](http://fossil.include-once.org/fossil-skins/raw/googlecode.txt?name=1c1738c248dc1f5784e402a466e926bfd9a703e4) available. For convenience, I already have the [CSS](https://cowyo.com/fossil_css/raw), [Header](https://cowyo.com/fossil_header2/raw), and [Footer](https://cowyo.com/fossil_footer/raw). Just edit each component (Step 4 under Skins) and then check both boxes in Step 7 and hit "Publish Draft1".
 
 
 ## General {#general}
