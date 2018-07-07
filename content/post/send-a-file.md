@@ -22,20 +22,131 @@ Which OS? There are some utilities that are really just specific to linux operat
 - [Tor](#tor)
 - [Dat](#dat)
 - [zget](#zget)
+- [Magic Wormhole](#magicwormhole)
+- [toss](https://github.com/zerotier/toss)
 
 ## Web-based
 
 - [transfer.sh](#transfersh)
 - [ShareDrop](#sharedrop)
+- [instant.io](#instantio)
+- [FilePizza](#filepizza)
 
-https://github.com/webtorrent/instant.io
-https://github.com/kern/filepizza
-https://github.com/warner/magic-wormhole
-https://github.com/zerotier/toss
-https://github.com/datproject/dat
 https://github.com/schollz/croc
 https://github.com/nneonneo/ffsend
 https://github.com/jedisct1/piknik
+
+---
+
+# [toss](https://github.com/zerotier/toss) {#toss}
+
+Toss is a convenient ultra-minimal command line tool to send files over LAN, WiFi, and virtual networks. One of the great features though is that you can use *toss* to [stream huge files between systems](https://github.com/zerotier/toss#stream-a-huge-archive-between-systems).
+
+- End-to-end encryption? No.
+- Guarantee recipient? Yes.
+- Anonymous? No.
+- Is it fast? Yes.
+- Easy to use? Eh, requires long addresses.
+- Web accessible? No.
+- Easy to install? No, requires building from C source.
+- Which OS? All.
+
+
+### Usage 
+
+Then you can send a file with
+
+```
+$ toss somefile 
+somefile/XX
+```
+
+and receive a file with 
+
+```
+$ catch somefile/XX
+```
+
+which will prompt for the wormhole code from the previous.
+
+
+---
+
+# [Magic Wormhole](https://github.com/warner/magic-wormhole) {#magicwormhole}
+
+This package provides a library and a command-line tool named *wormhole*, which makes it possible to get arbitrary-sized files and directories (or short pieces of text) from one computer to another. 
+
+- End-to-end encryption? Yes.
+- Guarantee recipient? Yes.
+- Anonymous? No.
+- Is it fast? Yes.
+- Easy to use? Yes.
+- Web accessible? Yes.
+- Easy to install? No, requires installing Python.
+- Which OS? All.
+
+### Installation 
+
+```
+$ pip install magic-wormhole
+```
+
+### Usage 
+
+Then you can send a file with
+
+```
+$ wormhole send SOMEFILE
+```
+
+and receive a file with 
+
+```
+$ wormhole receive
+```
+
+which will prompt for the wormhole code from the previous.
+
+
+---
+
+# [FilePizza](https://github.com/kern/filepizza) {#filepizza}
+
+Download/upload files using the WebTorrent protocol (BitTorrent over WebRTC). 
+
+- End-to-end encryption? No.
+- Guarantee recipient? Yes.
+- Anonymous? No.
+- Is it fast? Yes.
+- Easy to use? Yes.
+- Web accessible? Yes.
+- Easy to install? Yes.
+- Which OS? All.
+
+### Usage 
+
+Go to https://file.pizza and enter your file and then share the magnet link with someone else.
+
+
+---
+
+# [instant.io](https://github.com/webtorrent/instant.io) {#instantio}
+
+Download/upload files using the WebTorrent protocol (BitTorrent over WebRTC). 
+
+- End-to-end encryption? No.
+- Guarantee recipient? Yes.
+- Anonymous? No.
+- Is it fast? Yes.
+- Easy to use? Yes.
+- Web accessible? Yes.
+- Easy to install? Yes.
+- Which OS? All.
+
+### Usage 
+
+Go to https://instant.io/ and enter your file and then share the magnet link with someone else.
+
 
 ---
 
