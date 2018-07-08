@@ -4,8 +4,8 @@ This is a ready-to-go [Hugo](https://gohugo.io/)-based blog publishing system. T
 
 ## Features
 
-- Integrated search ([try it](https://hugocraft.schollz.com/search/?s=cat))
-- Integrated comments [at the bottom of each post](https://hugocraft.schollz.com/my-first-post/)
+- Integrated search ([try it](https://hugocraft.schollz.com/search/?s=blog))
+- Integrated comments [at the bottom of each post](https://hugocraft.schollz.com/hugocraft/#commentssection)
 - Automatic image captioning using markdown
 - Very fast (base page ~3.9kB)
 - Easy to get started and run
