@@ -26,6 +26,8 @@ Which OS? There are some utilities that are really just specific to linux operat
 - [toss](#toss)
 - [croc](#croc)
 - [cowyodel](#cowyodel)
+- [netcat](#netcat)
+- [IPFS](#ipfs)
 
 ## Web-based
 
@@ -38,6 +40,65 @@ https://github.com/nneonneo/ffsend
 https://github.com/jedisct1/piknik
 netcat
 ipfs
+
+---
+
+# IPFS {#ipfs}
+
+IPFS is a lot more than just a file transfer utility, namely its an entire [peer-to-peer hypermedia protocol](https://ipfs.io/). 
+
+### Install
+
+If you don't have already, just [install the latest from their website](https://ipfs.io/docs/install/).
+
+### Usage
+
+The sender needs to start an IPFS daemon first and then add the file that they want to send.
+
+```
+$ ipfs daemon &
+$ ipfs add somefile
+added QmSr1saoM3n1Sx8dBs5bz7ozU somefile
+```
+
+The recipient can download it using anything they want - as it is accessible now with a web address.
+
+```
+$ wget https://ipfs.io/ipfs/QmSr1saoM3n1Sx8dBs5bz7ozU
+```
+
+Note, it can take a few minutes for your file to get connected between enough peers and the gateway.
+
+
+---
+
+# netcat {#netcat}
+
+netcat allows arbitrary TCP and UDP connections and listens. It can be used for easily transfering files over LAN.
+
+### Install
+
+If you don't have already, just install:
+
+```
+$ apt-get install netcat pv
+```
+
+The additional `pv` is a progress monitor for pipes so you can monitor the progress too!
+
+### Usage
+
+For netcat to work, you actually have to start listening first. So first the recipient should do
+
+```
+$ netcat -l -p 6000 | pv > somefile
+```
+
+Then the sender can send off their file
+
+```
+$ cat somefile | pv | netcat localhost 6000
+```
 
 ---
 
@@ -64,7 +125,22 @@ $ go get github.com/schollz/cowyodel
 
 ### Usage
 
-TODO
+To send a file, you first upload it to the cowyo.com server. (Note: you can actually host your own cowyo.com server, see [the Github](https://github.com/schollz/cowyo))
+
+```
+$ cowyodel upload README.md
+Uploaded (textual data). Your codephrase: xx
+```
+
+You can then just download it
+
+```
+$ cowyodel download xx
+```
+
+or you can view it at `https://cowyo.com/xx`.
+
+See the [Github](https://github.com/schollz/cowyodel#upload) for more usage details.
 
 ---
 
