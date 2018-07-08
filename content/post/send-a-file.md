@@ -36,6 +36,8 @@ Which OS? There are some utilities that are really just specific to linux operat
 
 https://github.com/nneonneo/ffsend
 https://github.com/jedisct1/piknik
+netcat
+ipfs
 
 ---
 
@@ -108,7 +110,7 @@ $ croc XX
 
 # [toss](https://github.com/zerotier/toss) {#toss}
 
-Toss is a convenient ultra-minimal command line tool to send files over LAN, WiFi, and virtual networks. One of the great features though is that you can use *toss* to [stream huge files between systems](https://github.com/zerotier/toss#stream-a-huge-archive-between-systems).
+Toss is a convenient ultra-minimal command line tool to send files over LAN. One of the great features though is that you can use *toss* to [stream huge files between systems](https://github.com/zerotier/toss#stream-a-huge-archive-between-systems).
 
 - End-to-end encryption? No.
 - Guarantee recipient? Yes.
