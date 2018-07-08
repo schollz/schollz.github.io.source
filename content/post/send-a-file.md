@@ -23,7 +23,9 @@ Which OS? There are some utilities that are really just specific to linux operat
 - [Dat](#dat)
 - [zget](#zget)
 - [Magic Wormhole](#magicwormhole)
-- [toss](https://github.com/zerotier/toss)
+- [toss](#toss)
+- [croc](#croc)
+- [cowyodel](#cowyodel)
 
 ## Web-based
 
@@ -32,9 +34,75 @@ Which OS? There are some utilities that are really just specific to linux operat
 - [instant.io](#instantio)
 - [FilePizza](#filepizza)
 
-https://github.com/schollz/croc
 https://github.com/nneonneo/ffsend
 https://github.com/jedisct1/piknik
+
+---
+
+# [cowyodel](https://github.com/schollz/cowyodel) {#cowyodel}
+
+*cowyodel* is another one of my own file-sharing tool. This one is unique in that it uploads the file to pastebin, [cowyo.com](https://cowyo.com) which, if it is a text file, allows you to make edits. You can also share binary files though, too.
+
+- End-to-end encryption? Optional.
+- Guarantee recipient? No.
+- Anonymous? Yes (except through server logs).
+- Is it fast? Yes.
+- Easy to use? Yes.
+- Web accessible? Yes, for downloading.
+- Easy to install? Yes.
+- Which OS? All.
+
+### Installation 
+
+Download a release from [the Github releases](https://github.com/schollz/cowyodel/releases/latest) or install with Go:
+
+```
+$ go get github.com/schollz/cowyodel
+```
+
+### Usage
+
+TODO
+
+---
+
+# [croc](https://github.com/schollz/croc) {#croc}
+
+*croc* is my own file-sharing program that like [*magic wormhole*](#magicwormhole) features simple, instantaneous end-to-end encryption with guaranteed recipients ensured using a password authenticated key exchange. Unlike *magic wormhole*, though, you can just download a binary and run for any operating system - much easier to install.
+
+- End-to-end encryption? Yes.
+- Guarantee recipient? Yes.
+- Anonymous? No.
+- Is it fast? Yes.
+- Easy to use? Yes.
+- Web accessible? No.
+- Easy to install? Yes.
+- Which OS? All.
+
+### Installation 
+
+Download a release from [the Github releases](https://github.com/schollz/croc/releases/latest) or install with Go:
+
+```
+$ go get github.com/schollz/croc
+```
+
+### Usage 
+
+You can send a file with
+
+```
+$ croc send somefile
+On the other computer, please run:
+
+croc XX
+```
+
+and receive a file with 
+
+```
+$ croc XX
+```
 
 ---
 
@@ -51,6 +119,9 @@ Toss is a convenient ultra-minimal command line tool to send files over LAN, WiF
 - Easy to install? No, requires building from C source.
 - Which OS? All.
 
+### Installation 
+
+TODO 
 
 ### Usage 
 
@@ -66,9 +137,6 @@ and receive a file with
 ```
 $ catch somefile/XX
 ```
-
-which will prompt for the wormhole code from the previous.
-
 
 ---
 
@@ -86,6 +154,8 @@ This package provides a library and a command-line tool named *wormhole*, which 
 - Which OS? All.
 
 ### Installation 
+
+First install Python and then
 
 ```
 $ pip install magic-wormhole
@@ -280,13 +350,21 @@ Tor is nice because in theory it is encrypted and anonymous file transfer. You n
 
 ### Installation 
 
+First install `tor` for creating the server and `torsocks` for getting the file (although a Tor browser also works for getting the file).
+
 ```
 sudo apt-get install tor torsocks
 ```
 
+To send you should just create an onion and serve your files in a directory. There is a simple wrapper in Go that can do this. You can get [download a release](https://github.com/schollz/onionserve/releases/latest) or install it with Go:
+
+```
+$ go get github.com/schollz/onionserve
+```
+
 ### Usage
 
-To send you should just create an onion and serve your files in a directory. There is a simple wrapper in Go that can do this. You can get it with Go `go get -u -v github.com/schollz/onionserve` or [download a release](https://github.com/schollz/onionserve/releases/latest).
+To share a file, you can just serve your directory with the `onionserve` program.
 
 ```
 $ onionserve
