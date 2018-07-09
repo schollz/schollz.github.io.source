@@ -17,7 +17,12 @@ Which OS? There are some utilities that are really just specific to linux operat
 
 # Table of contents
 
-## Command-line 
+## File synchronization
+
+- Syncthing https://syncthing.net/
+- Rclone  https://rclone.org/
+
+## Command-line file transfer
 
 - [Tor](#tor)
 - [Dat](#dat)
@@ -29,7 +34,7 @@ Which OS? There are some utilities that are really just specific to linux operat
 - [netcat](#netcat)
 - [IPFS](#ipfs)
 
-## Web-based
+## Web-based file transfer
 
 - [transfer.sh](#transfersh)
 - [ShareDrop](#sharedrop)
