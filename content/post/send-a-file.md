@@ -14,7 +14,13 @@ Is it easy to use (e.g. for an average person and not a CS major)? I'm going to 
 
 Which OS? There are some utilities that are really just specific to linux operating systems.
 
+Receive a file:
+
 ssh user@server "cat file | pigz -9 | ccrypt --key PASSPHRASE" | ccrypt -d --key PASSPHRASE | pigz -d | pv -atepb -s "293M" > done.json
+
+Send a file:
+
+pv -batep file | gzip -9 | ssh user@server "gzip -d > file2"
 
 # Table of contents
 
