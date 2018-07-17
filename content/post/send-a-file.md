@@ -14,6 +14,8 @@ Is it easy to use (e.g. for an average person and not a CS major)? I'm going to 
 
 Which OS? There are some utilities that are really just specific to linux operating systems.
 
+ssh user@server "cat file | pigz -9 | ccrypt --key PASSPHRASE" | ccrypt -d --key PASSPHRASE | pigz -d | pv -atepb -s "293M" > done.json
+
 # Table of contents
 
 ## File synchronization
