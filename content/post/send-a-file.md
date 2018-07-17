@@ -1,8 +1,7 @@
 ---
 title: "Send a File"
 date: 2018-05-21T17:36:50-07:00
-draft: true
-tags: [thoughts]
+tags: [thoughts,in-progress]
 slug: send-a-file
 written: ["2018-05-21","2018-05","2018"]
 ---
