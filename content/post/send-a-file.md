@@ -86,23 +86,25 @@ netcat allows arbitrary TCP and UDP connections and listens. It can be used for 
 If you don't have already, just install:
 
 ```
-$ apt-get install netcat pv
+$ apt-get install netcat pv pigz
 ```
 
 The additional `pv` is a progress monitor for pipes so you can monitor the progress too!
 
 ### Usage
 
-For netcat to work, you actually have to start listening first. So first the recipient should do
+The usage is adapted from https://unix.stackexchange.com/a/238217
+
+The sender should do:
 
 ```
-$ netcat -l -p 6000 | pv > somefile
+$ cat file | pigz | nc -l 8888
 ```
 
 Then the sender can send off their file
 
 ```
-$ cat somefile | pv | netcat localhost 6000
+$ nc <sender URL> 8888 | pigz -d | pv -atep -s "1g" > file
 ```
 
 ---
